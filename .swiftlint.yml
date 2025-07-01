@@ -1,0 +1,69 @@
+# SwiftLint Configuration for CarniCare
+
+# Disable specific rules that may not fit the project needs
+disabled_rules:
+  - trailing_whitespace
+
+# Enable additional rules for better code quality
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - weak_delegate
+  - unneeded_parentheses_in_closure_argument
+
+# Specify which files to include/exclude
+included:
+  - CarniCare
+
+excluded:
+  - CarniCare.xcodeproj
+  - CarniCareTests
+  - CarniCareUITests
+  - Pods
+  - .build
+
+# Customize rule configurations
+line_length:
+  warning: 120
+  error: 150
+
+type_body_length:
+  warning: 300
+  error: 400
+
+function_body_length:
+  warning: 50
+  error: 100
+
+file_length:
+  warning: 400
+  error: 500
+
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+
+nesting:
+  type_level:
+    warning: 2
+    error: 3
+
+# Custom rules for identifier naming
+identifier_name:
+  min_length:
+    warning: 2
+    error: 1
+  max_length:
+    warning: 45
+    error: 50
+  excluded:
+    - id
+    - i
+    - j
+    - x
+    - y
+
+# Force cast and try rules
+force_cast: warning
+force_try: warning
