@@ -11,6 +11,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State private var viewModel: ContentViewModel?
 
     var body: some View {
         NavigationSplitView {
@@ -22,14 +23,18 @@ struct ContentView: View {
                         Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete { offsets in
+                    viewModel?.deleteItems(items: items, offsets: offsets)
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: {
+                        viewModel?.addItem()
+                    }) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
@@ -37,22 +42,11 @@ struct ContentView: View {
         } detail: {
             Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+        .onAppear {
+            if viewModel == nil {
+                viewModel = ContentViewModel(modelContext: modelContext)
             }
         }
-    }
 }
 
 #Preview {
