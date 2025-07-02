@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct CarniCareApp: App {
+    
+    @State private var modelData = ModelData()
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -18,19 +20,32 @@ struct CarniCareApp: App {
             Cross.self,
             Photo.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        let modelConfiguration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false,
+            allowsSave: true
+        )
+        
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(
+                for: schema,
+                configurations: [modelConfiguration]
+            )
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CarniCareSplitView()
+                .environment(modelData)
+                .modelContainer(sharedModelContainer)
+                .onGeometryChange(for: CGSize.self) { geometry in
+                    geometry.size
+                } action: {
+                    modelData.windowSize = $0
+                }
         }
-        .modelContainer(sharedModelContainer)
     }
 }

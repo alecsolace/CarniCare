@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PlantGenus: String, Codable {
+enum PlantGenus: String, Codable, CaseIterable {
     case sarracenia
     case dionaea
     case drosera
