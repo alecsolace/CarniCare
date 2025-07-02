@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct CarniCareSplitView: View {
-    @Environment(ModelData.self) var modelData
+    @Bindable @Environment(ModelData.self) var modelData
     @Environment(\.modelContext) private var modelContext
 
     @State private var preferredColumn: NavigationSplitViewColumn = .detail
     
     var body: some View {
-        @Bindable var modelData = modelData
-        
         TabView {
             ForEach(NavigationOptions.mainPages) { page in
                 NavigationStack(path: $modelData.path) {

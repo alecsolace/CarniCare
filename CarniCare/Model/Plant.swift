@@ -12,10 +12,9 @@ import SwiftUI
 
 
 @Model
-class Plant : Transferable {
-    typealias Representation = <#type#>
-
-    @Attribute(.unique) var id: Int
+class Plant {
+    
+    @Attribute(.unique) var id: UUID
     var name: String
     var genus: PlantGenus
     var cultivar: String?
@@ -42,7 +41,7 @@ class Plant : Transferable {
         cultivar: String? = nil,
         acquisitionDate: Date
     ) {
-        self.id = .init()
+        self.id = UUID()
         self.name = name
         self.genus = genus
         self.cultivar = cultivar

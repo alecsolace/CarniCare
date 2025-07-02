@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-/// A button for adding or removing a landmark from the list of favorite landmarks.
+/// A button for adding or removing a plant from the list of favorite plants.
 struct PlantFavoriteButton: View {
     @Environment(ModelData.self) private var modelData
     let plant: Plant
