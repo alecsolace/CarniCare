@@ -1,0 +1,26 @@
+# SwiftLint configuration for CarniCare
+
+# Customize rules to your team's preferences
+
+disabled_rules:
+  - trailing_whitespace
+  - vertical_whitespace
+  - line_length  # adjust or re-enable as needed
+
+opt_in_rules:
+  - empty_count
+  - first_where
+
+# Exclude generated files and assets from linting
+enabled:
+  - all
+excluded:
+  - CarniCare.xcodeproj
+  - CarniCare.xcworkspace
+  - CarniCareTests
+  - CarniCareUITests
+  - Archive
+
+# Set severity levels
+#reporter: "xcode"  # Use 'xcode' reporter in CI
+#quiet: true
